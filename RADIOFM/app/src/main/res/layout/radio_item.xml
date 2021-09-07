@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_radio_channel"
+    android:layout_marginBottom="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_height="150dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearanceOverlay="@style/ImageRadius"
+        android:scaleType="centerCrop"
+        android:src="@drawable/gau_radio"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:padding="5dp"
+        android:background="@drawable/border_radius"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tv_name_radio"
+        android:text="VOV GT HN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:textColor="@color/white"
+        android:background="@color/primary_app"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="7dp"
+        android:layout_alignParentTop="true"
+        android:visibility="gone"
+        android:paddingHorizontal="5dp"
+        android:textSize="16dp"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/status_radio"
+        android:text="LIVE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

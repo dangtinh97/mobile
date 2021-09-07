@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">smart plug</string>
+    <string name="device_on">(Đã kết nối)</string>
+    <string name="device_off">(Chưa kết nối)</string>
+</resources>

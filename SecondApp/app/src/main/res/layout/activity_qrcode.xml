@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_medium">
+
+
+    <EditText
+        android:id="@+id/serie_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:height="40dp"
+        android:hint="Số serie"
+        android:padding="5dp"
+        android:background="@drawable/bg_input_login"
+        android:drawableRight="@drawable/outline_qr_code_scanner_24" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:height="40dp"
+        android:layout_below="@+id/serie_number"
+        android:layout_marginTop="15dp"
+        android:hint="Tên nhóm thiết bị"
+        android:padding="5dp"
+        android:background="@drawable/bg_input_login"
+        />
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_marginRight="15dp"
+            android:text="Kiểm tra"
+            android:width="110dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_marginRight="15dp"
+            android:width="110dp"
+            android:backgroundTint="@color/color_success"
+            android:layout_height="wrap_content"
+            android:text="Lưu" />
+
+        <Button
+            android:id="@+id/cancel_action"
+            android:width="110dp"
+            android:backgroundTint="@color/secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Huỷ bỏ" />
+
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

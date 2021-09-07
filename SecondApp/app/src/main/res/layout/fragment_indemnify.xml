@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.indemnify.IndemnifyFragment"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/indemnify_toolbar"
+        android:background="@drawable/bg_border_account_other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:gravity="start"
+            android:layout_width="match_parent"
+            android:text="Yêu cầu bồi thường"
+            android:layout_height="wrap_content"/>
+    </androidx.appcompat.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="12dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cung cấp đầy đủ những mục thông tin dưới đây để yêu cầu của bạn được phê duyệt nhanh nhất" />
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input_login"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Số giấy chứng nhận"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:hint="Vui lòng nhập số GCN"
+                android:paddingTop="8dp"
+                android:textSize="16sp"
+                android:background="@null"
+                android:id="@+id/indemnify_number_certificate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_marginTop="12dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:text="Thông tin tài khoản nhận tiền"
+            android:textColor="@color/main_blue"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input_login"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Ngân hàng"
+                android:layout_height="wrap_content"/>
+            <Spinner
+                android:paddingTop="8dp"
+                android:textSize="16sp"
+                android:background="@null"
+                android:paddingBottom="6dp"
+                android:id="@+id/indemnify_bank_id_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input_login"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Chi nhánh"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:hint="Chi nhánh ngân hàng"
+                android:paddingTop="8dp"
+                android:textSize="16sp"
+                android:background="@null"
+                android:id="@+id/indemnify_bank_name_branch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input_login"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Số tài khoản"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:hint="Số tài khoản ngân hàng"
+                android:paddingTop="8dp"
+                android:textSize="16sp"
+                android:inputType="number"
+                android:background="@null"
+                android:id="@+id/indemnify_bank_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_input_login"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Chủ tài khoản"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:hint="Họ tên chủ tài khoản"
+                android:paddingTop="8dp"
+                android:textSize="16sp"
+                android:background="@null"
+                android:id="@+id/bank_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:text="Xác nhận của CQCN"
+            android:textColor="@color/main_blue"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/indemnify_description"
+            android:text="Đang tải..."
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.button.MaterialButton
+                app:icon="@drawable/ic_baseline_add_24"
+                app:backgroundTint="@null"
+                android:layout_width="100dp"
+                android:textColor="@color/main_gray"
+                android:background="@drawable/add_button"
+                android:gravity="center"
+                android:layout_height="100dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                android:minWidth="0dp"
+                style="@style/Button"
+                android:text="Thêm ảnh"
+                app:iconGravity="textTop"
+                app:iconPadding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:text="Xác nhận của CQCN"
+            android:textColor="@color/main_blue"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="14dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.button.MaterialButton
+                app:icon="@drawable/ic_baseline_add_24"
+                app:backgroundTint="@null"
+                android:layout_width="100dp"
+                android:textColor="@color/main_gray"
+                android:background="@drawable/add_button"
+                android:gravity="center"
+                android:layout_height="100dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                android:minWidth="0dp"
+                style="@style/Button"
+                android:text="Thêm ảnh"
+                app:iconGravity="textTop"
+                app:iconPadding="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+
+            android:backgroundTint="@color/color_success"
+            android:background="@drawable/btn_default"
+            app:icon="@drawable/ic_baseline_insert_drive_file_24"
+            android:layout_width="match_parent"
+            android:text="Gửi yêu cầu"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

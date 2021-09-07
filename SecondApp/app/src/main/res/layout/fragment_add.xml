@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="25dp"
+    android:orientation="vertical"
+    android:layout_marginTop="15dp"
+    tools:context=".fragments.add.AddFragment">
+    <EditText
+        android:id="@+id/et_first_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="First Name"
+        tools:ignore="MissingConstraints" />
+    <EditText
+        android:id="@+id/et_last_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/et_first_name"
+        android:hint="Last Name"
+        tools:ignore="MissingConstraints" />
+    <EditText
+        android:id="@+id/et_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_last_name"
+        android:layout_marginTop="15dp"
+        android:hint="Age"
+        android:inputType="number"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:text="Add"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/et_age"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

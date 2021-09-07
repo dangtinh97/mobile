@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.PodCastFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/song_recycler_view"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/progressBar_podcast_fragment"
+        android:outlineAmbientShadowColor="@color/primary_app"
+        android:outlineSpotShadowColor="@color/primary_app"
+        android:padding="20dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

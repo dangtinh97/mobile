@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    tools:context=".fragments.auth.LoginFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/tv_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textFontWeight="@integer/title"
+        android:textStyle="bold"
+        android:text="@string/login" />
+
+    <LinearLayout
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_input_login"
+        android:id="@+id/ll_mobile"
+        android:layout_marginBottom="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_login"
+        android:orientation="vertical">
+        <TextView
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mobile" />
+        <EditText
+            android:id="@+id/mobile"
+            android:paddingTop="8dp"
+            android:textSize="16sp"
+            android:background="@null"
+            android:inputType="number"
+            android:hint="Số điện thoại của bạn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_input_login"
+        android:id="@+id/ll_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_mobile"
+        android:orientation="vertical">
+        <TextView
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/password" />
+        <EditText
+            android:id="@+id/auth_password"
+            android:paddingTop="8dp"
+            android:textSize="16sp"
+            android:background="@null"
+            android:inputType="textPassword"
+            android:hint="Mật khẩu truy cập"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:backgroundTint="@color/main_blue_focus"
+        style="@style/Button"
+        android:background="@drawable/btn_default"
+        android:layout_below="@id/ll_password"
+        android:layout_width="match_parent"
+        android:text="@string/login"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

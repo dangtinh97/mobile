@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/movie_item"
+    android:layout_width="match_parent"
+    android:background="@color/primary_app"
+    android:layout_height="280dp">
+    <ImageView
+        android:id="@+id/thumbnail_movie"
+        android:scaleType="centerCrop"
+        android:src="@drawable/movie_review"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="15dp"
+        android:layout_below="@+id/thumbnail_movie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_title_movie_item"
+                android:textSize="16dp"
+                android:textColor="@color/white"
+                android:text="Tất tần tật về IRON MAN TONY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/name_channel_movie_item"
+                android:textColor="@color/secondary"
+                android:layout_marginTop="7dp"
+                android:layout_below="@id/tv_title_movie_item"
+                android:text="web5Ngày"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_viewer_time"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="7dp"
+                android:textColor="@color/secondary"
+                android:layout_below="@id/tv_title_movie_item"
+                android:layout_toRightOf="@+id/name_channel_movie_item"
+                android:text="35N Lượt xem - 1 Ngày trước"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

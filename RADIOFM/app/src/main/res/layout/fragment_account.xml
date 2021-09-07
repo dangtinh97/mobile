@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.AccountFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:paddingHorizontal="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+         <TextView
+             android:textColor="@color/primary_app"
+             android:layout_centerVertical="true"
+             android:textSize="18dp"
+             android:text="Hẹn giờ:"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"/>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/second_finished"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/secondary"
+            android:layout_centerVertical="true"
+            android:text="12:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/open_timer"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_baseline_settings_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/modal_timer"
+        android:layout_centerVertical="true"
+        android:layout_margin="30dp"
+        android:padding="20dp"
+        android:background="@drawable/border_radius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/timer_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_below="@id/timer_recycler_view"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/close_timer"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                app:backgroundTint="@null"
+                android:background="@drawable/btn_main_blue_focus"
+                android:textColor="@color/white"
+                android:text="Đóng lại"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/save_timer"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                app:backgroundTint="@null"
+                android:background="@drawable/btn_success"
+                android:textColor="@color/white"
+                android:text="Lưu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

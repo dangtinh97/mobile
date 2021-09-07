@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AppActivity">
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/app_viewpager"
+        android:layout_above="@+id/main_media_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <FrameLayout
+        android:visibility="gone"
+        android:layout_above="@id/menu_app"
+        android:id="@+id/main_media_frame"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="0.5"
+        android:background="#000000">
+
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:hide_on_touch="false"
+        app:show_vr_button="false"
+        app:show_buffering="when_playing"
+        app:show_timeout="0"
+        android:gravity="center" />
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/menu_app"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/menu_app_bottom_navigation"
+        android:layout_width="match_parent"
+        app:itemIconTint="@color/color_navigation"
+        app:itemTextColor="@color/color_navigation"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

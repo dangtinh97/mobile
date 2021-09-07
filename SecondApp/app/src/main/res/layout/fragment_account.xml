@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/supper_light_gray"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".fragments.user.AccountFragment">
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/relative_layout_account_user"
+        android:outlineSpotShadowColor="@color/main_gray"
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/logout"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_outline_settings_24"
+            android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:id="@+id/account"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:outlineSpotShadowColor="#003871"
+            android:outlineAmbientShadowColor="#003871"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:civ_border_width="4dp"
+            app:civ_border_color="@color/white"
+            android:layout_marginBottom="24dp"
+            android:id="@+id/account_avatar"
+            android:layout_width="130dp"
+            android:src="@drawable/phuc"
+            android:layout_gravity="center"
+            android:layout_height="130dp"/>
+        <TextView
+            android:id="@+id/account_fullname"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:text="Đang tải..."
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/account_mobile"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:text="Đang tải..."
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/account"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:paddingEnd="6dp"
+            android:layout_weight = "1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <Button
+                app:backgroundTint="@null"
+                android:background="@drawable/btn_main_warning"
+                style="@style/Button"
+                android:drawableStart="@drawable/outline_add_24"
+                android:layout_width="match_parent"
+                android:text="Mã QR của tôi"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:paddingStart="6dp"
+            android:layout_weight ="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <Button
+                style="@style/Button"
+                android:background="@drawable/btn_default"
+                android:drawableStart="@drawable/outline_add_24"
+                android:layout_width="match_parent"
+                android:text="Mời bạn bè"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </LinearLayout>
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="12dp"
+        android:id="@+id/account_other"
+        android:layout_below="@+id/relative_layout_account_user"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>

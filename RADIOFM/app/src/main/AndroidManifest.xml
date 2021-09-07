@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.radiofm">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+
+    <application
+        android:name=".PushNotificationChannel"
+        android:allowBackup="true"
+        android:icon="@drawable/logo_bg"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.RADIOFM">
+        <activity android:name=".MoveAppActivity"></activity>
+        <activity
+            android:name=".MovieActivity"
+            android:label="@string/title_activity_movie"
+            android:theme="@style/Theme.RADIOFM.NoActionBar" />
+        <activity
+            android:name=".AppActivity"
+            android:theme="@style/Theme.RADIOFM.NoActionBarAndStatusBar" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.RADIOFM.NoActionBarAndStatusBar" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/Theme.RADIOFM.NoActionBarAndStatusBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

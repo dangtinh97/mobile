@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    >
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="20dp"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/login_username"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="50dp"
+            android:focusable="true"
+
+            android:background="@drawable/bg_input_login"
+            android:hint="User name" />
+
+        <EditText
+            android:id="@+id/login_password"
+            android:padding="10dp"
+            android:height="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/login_username"
+            android:layout_marginTop="80dp"
+            android:inputType="textPassword"
+            android:background="@drawable/bg_input_login"
+            android:hint="Password" />
+        <Button
+            android:id="@+id/attemptLogin"
+            android:layout_alignTop="@id/login_password"
+            android:layout_marginTop="80dp"
+            android:height="50dp"
+            android:text="Đăng nhập"
+            android:width="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+</RelativeLayout>

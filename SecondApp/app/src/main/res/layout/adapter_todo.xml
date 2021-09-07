@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="15dp"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/txtTodoTitle"
+        android:text="Todo 1"
+        android:layout_toLeftOf="@+id/btnDoneTodo"
+        android:textColor="@color/black"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+    <Button
+        android:id="@+id/btnDoneTodo"
+        android:layout_alignParentRight="true"
+        android:text="Done"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        tools:ignore="MissingConstraints" />
+</RelativeLayout>

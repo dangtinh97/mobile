@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_home"
+        android:title="Trang chủ"
+        android:icon="@drawable/outline_house_24"
+        />
+    <item
+        android:id="@+id/action_indemnify"
+        android:icon="@drawable/ic_baseline_support_24"
+        android:title="Bồi thường"
+        />
+    <item
+        android:id="@+id/action_help"
+        android:icon="@drawable/sharp_help_outline_24"
+        android:title="Hỗ trợ"
+        />
+    <item
+        android:id="@+id/action_notify"
+        android:icon="@drawable/ic_outline_notifications_24"
+        android:title="Thông báo"
+        />
+    <item
+        android:id="@+id/action_account"
+        android:icon="@drawable/ic_outline_account_circle_24"
+        android:title="Tài khoản"
+        />
+</menu>

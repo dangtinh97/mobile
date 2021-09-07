@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/timer_select"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+        <TextView
+            android:id="@+id/tv_timer"
+            android:layout_centerVertical="true"
+            android:text="15 minute"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/status_timer"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_baseline_check_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+</RelativeLayout>

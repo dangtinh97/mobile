@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/song_item"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="horizontal"
+    android:background="@drawable/radio_shadows"
+    android:paddingBottom="5dp"
+    android:layout_marginBottom="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_song"
+        android:src="@drawable/img_girl"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/ImageRadius"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/image_song"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_name_song"
+            android:textColor="@color/purple_500"
+            android:textFontWeight="200"
+            android:textSize="18dp"
+            android:text="Nơi mùa thu bắt đầu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/song_favorite"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/song_is_play"
+            android:layout_marginRight="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_baseline_play_circle_outline_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+</RelativeLayout>
