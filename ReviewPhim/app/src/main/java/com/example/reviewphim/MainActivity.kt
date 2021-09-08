@@ -6,6 +6,8 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
+
 import android.view.MotionEvent
 import android.view.View
 
@@ -28,9 +30,13 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Log
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.exo_player_control_view.*
-import kotlinx.android.synthetic.main.movie_item.*
+import java.util.*
 import kotlin.system.exitProcess
 
 
@@ -43,7 +49,7 @@ const val STATE_PLAYER_FULLSCREEN = "playerFullscreen"
 const val STATE_PLAYER_PLAYING = "playerOnPlay"
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var exoPlayer:SimpleExoPlayer
     private lateinit var dataSourceFactory: DataSource.Factory
     private lateinit var playerView: PlayerView
@@ -76,6 +82,9 @@ class MainActivity : AppCompatActivity() {
             no_internet.visibility=View.VISIBLE
             return;
         }
+
+        firebaseAnalytics = Firebase.analytics
+
         listenerActionMovie()
 
 
@@ -252,6 +261,8 @@ class MainActivity : AppCompatActivity() {
 
 
     fun playMovie(data:MovieListModel){
+
+        googleAnalytic("play_movie",data.title)
         setActionMovie(data)
         inScreenPlay = true
         expand()
@@ -325,6 +336,18 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
         }
         pressedTime = System.currentTimeMillis();
+    }
+
+
+    private fun googleAnalytic(key:String,value:String){
+        val android_id = Settings.Secure.getString(
+            this.getContentResolver(),
+            Settings.Secure.ANDROID_ID
+        )
+
+        firebaseAnalytics.logEvent(key) {
+            param("user_$android_id",  value)
+        }
     }
 
 }

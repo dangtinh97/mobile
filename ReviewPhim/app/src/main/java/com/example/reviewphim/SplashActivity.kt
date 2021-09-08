@@ -10,8 +10,10 @@ import android.provider.Settings.Secure
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.reviewphim.services.ApiService
-import com.example.reviewphim.services.SharedPreferencesService
-import java.lang.reflect.Method
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.*

@@ -17,6 +17,10 @@ import com.example.radiofm.models.ResponseModel
 import com.example.radiofm.models.Song
 import com.example.radiofm.services.AppConfig
 import com.example.radiofm.services.CallServer
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_pod_cast.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -24,6 +28,7 @@ import org.json.JSONTokener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 
 class PodCastFragment(private val appActivity: AppActivity) : Fragment() {
@@ -37,7 +42,7 @@ class PodCastFragment(private val appActivity: AppActivity) : Fragment() {
     private var dyScroll = 0
     private var models : MutableList<Song> = arrayListOf()
     private lateinit var processBar: ProgressBar
-
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     init {
         songAdapter = SongAdapter(this@PodCastFragment)
@@ -46,9 +51,9 @@ class PodCastFragment(private val appActivity: AppActivity) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        println("===PodCastFragment")
-        // Inflate the layout for this fragment
 
+        // Inflate the layout for this fragment
+        firebaseAnalytics = Firebase.analytics
 
         val view = inflater.inflate(R.layout.fragment_pod_cast, container, false)
         processBar = view.findViewById(R.id.progressBar_podcast_fragment)
@@ -59,7 +64,9 @@ class PodCastFragment(private val appActivity: AppActivity) : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if(newState==0 && dyScroll>1){
                     onLoading = false
-
+                    firebaseAnalytics.logEvent("music_load_data") {
+                        param("user_"+appActivity.getUserApp(),  Calendar.getInstance().getTime().toString())
+                    }
                     //Toast.makeText(context,lastOid,Toast.LENGTH_LONG).show()
                     fetchData(lastIdApi)
                 }

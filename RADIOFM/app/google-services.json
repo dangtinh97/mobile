@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "572793307630",
+    "firebase_url": "https://extension-c7947-default-rtdb.firebaseio.com",
+    "project_id": "extension-c7947",
+    "storage_bucket": "extension-c7947.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572793307630:android:9b33600d49857ecc008eff",
+        "android_client_info": {
+          "package_name": "com.example.radiofm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572793307630-5shj0lgf2jhgis169b715tsi6vd8uali.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.radiofm",
+            "certificate_hash": "7d54911442e00c40b6f4b82cdfe1c7f210a7c893"
+          }
+        },
+        {
+          "client_id": "572793307630-djr2klrhpcdva89d1op8amn51elhra32.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiiY1OcH4aJCni9LyLy1kUpGO4ZM4VZ-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572793307630-djr2klrhpcdva89d1op8amn51elhra32.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

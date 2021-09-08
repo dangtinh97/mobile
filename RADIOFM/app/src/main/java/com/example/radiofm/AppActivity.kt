@@ -6,12 +6,11 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.provider.Settings
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 
 import com.example.radiofm.adapters.AppViewPagerAdapter
 import com.example.radiofm.fragments.AccountFragment
@@ -26,15 +25,13 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Log
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_app.*
+import java.util.*
 import kotlin.system.exitProcess
-
-
-const val HLS_STATIC_URL_APP = "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-const val STATE_RESUME_WINDOW_APP = "resumeWindow"
-const val STATE_RESUME_POSITION_APP = "resumePosition"
-const val STATE_PLAYER_FULLSCREEN_APP = "playerFullscreen"
-const val STATE_PLAYER_PLAYING_APP = "playerOnPlay"
 
 const val USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"
 //link huong dan https://github.com/yoobi/exoplayer-kotlin
@@ -58,14 +55,15 @@ class AppActivity : AppCompatActivity() {
     private var playbackPosition: Long = 0
     private var isFullscreen = false
     private var isPlayerPlaying = true
-    private lateinit var countDownTimer:CountDownTimer
+
+    private lateinit var android_id:String
 
     private var mediaItem = MediaItem.Builder()
         .setUri(HLS_STATIC_URL)
         .setMimeType(MimeTypes.APPLICATION_M3U8)
         .build()
 
-    private lateinit var mediaList:MediaItem
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +77,13 @@ class AppActivity : AppCompatActivity() {
         if(!isOnline(this)){
             return Toast.makeText(this,"Vui lòng kết nối internet",Toast.LENGTH_LONG).show()
         }
+
+        android_id = Settings.Secure.getString(
+            this.getContentResolver(),
+            Settings.Secure.ANDROID_ID
+        )
+
+        firebaseAnalytics = Firebase.analytics
 
         homeAppFragment = HomeAppFragment(this)
 
@@ -118,59 +123,23 @@ class AppActivity : AppCompatActivity() {
         //notification()
     }
 
-    fun notification(){
-        val builder = NotificationCompat.Builder(this, "channel_1")
-            .setSmallIcon(R.drawable.ic_baseline_queue_music_24)
-            .setContentTitle("My notification")
-            .setContentText("Much longer text that cannot fit one line...")
-            .setStyle(NotificationCompat.BigTextStyle()
-                .bigText("Much longer text that cannot fit one line..."))
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-
-        with(NotificationManagerCompat.from(this)) {
-            // notificationId is a unique int for each notification that you must define
-            notify(1, builder.build())
-        }
-    }
-
-
     //EXO PLAYER
 
     fun playMusic(link:String,controlMusic:Boolean){
         val mineType = getMimeType(link)
         controlMusic(controlMusic)
         pause()
-//        if(!controlMusic){
-//            exoPlayer.setMediaItem(MediaItem.fromUri(link))
-//            exoPlayer.apply {
-//                me
-//            }
-//            exoPlayer.prepare()
-//            playerView.player = player
-//            playerView.onResume()
-//            playRadio =true
-//            playSong = false
-//        }else{
-//
-//            player.setMediaItem(MediaItem.fromUri(link))
-//            player.prepare()
-//            playerView.player = player
-//            playerView.onResume()
-//            playSong = true
-//            playRadio = false
-//        }
-//        main_media_frame.visibility = View.VISIBLE
-//        return
+        if(controlMusic){
+            firebaseAnalytics.logEvent("listen_music") {
+                param("user_$android_id",  Calendar.getInstance().getTime().toString())
+            }
+        }else{
+            firebaseAnalytics.logEvent("listen_radio") {
+                param("user_$android_id",  Calendar.getInstance().getTime().toString())
+            }
+        }
 
-
-//        if(playRadio){
-//            playerView.onPause()
-//            //releasePlayer()
-//            if(!controlMusic) exoPlayer.clearMediaItems()
-//            playerView.onResume()
-//        }else{
-            main_media_frame.visibility = View.VISIBLE
-//        }
+        main_media_frame.visibility = View.VISIBLE
 
         if(controlMusic){
             if(playRadio) player.clearMediaItems()
@@ -178,7 +147,6 @@ class AppActivity : AppCompatActivity() {
                 .setUri(link)
                 .setMimeType(mineType)
                 .build()
-            //releasePlayer()
             initPlayerSong(mediaItem)
             playSong = true
         }else{
@@ -197,6 +165,10 @@ class AppActivity : AppCompatActivity() {
 
     }
 
+    fun getUserApp(): String {
+        return this.android_id
+    }
+
     private fun initPlayer(mediaItem: MediaItem){
         exoPlayer = SimpleExoPlayer.Builder(this).build().apply {
             playWhenReady = isPlayerPlaying
@@ -206,7 +178,6 @@ class AppActivity : AppCompatActivity() {
         }
         playerView.player = exoPlayer
     }
-
 
     private fun initPlayerSong(mediaItem:MediaItem){
         player = SimpleExoPlayer.Builder(this).build().apply {
@@ -269,14 +240,6 @@ class AppActivity : AppCompatActivity() {
         playerView.player = player
     }
 
-    private fun releasePlayer(){
-        isPlayerPlaying = exoPlayer.playWhenReady
-        playbackPosition = exoPlayer.currentPosition
-        currentWindow = exoPlayer.currentWindowIndex
-        exoPlayer.release()
-        player.release()
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt(STATE_RESUME_WINDOW, exoPlayer.currentWindowIndex)
         outState.putLong(STATE_RESUME_POSITION, exoPlayer.currentPosition)
@@ -292,13 +255,6 @@ class AppActivity : AppCompatActivity() {
         if(playRadio) exoPlayer.release()
         playerView.onResume()
     }
-
-//    override fun onStop() {
-//        super.onStop()
-//        playerView.onPause()
-//        releasePlayer()
-//        println("===onStop")
-//    }
 
     private fun controlMusic(typeControl:Boolean){
         playerView.setShowPreviousButton(typeControl)
@@ -348,19 +304,6 @@ class AppActivity : AppCompatActivity() {
         return false
     }
 
-    override fun onResume() {
-
-        println("====>onResume")
-
-        super.onResume()
-
-    }
-
-    override fun onRestart() {
-        println("====>onRestart")
-        super.onRestart()
-    }
-
     override fun onBackPressed() {
         if (pressedTime + 2000 > System.currentTimeMillis()) {
             super.onBackPressed();
@@ -370,8 +313,5 @@ class AppActivity : AppCompatActivity() {
         }
         pressedTime = System.currentTimeMillis();
     }
-
-
-
 
 }

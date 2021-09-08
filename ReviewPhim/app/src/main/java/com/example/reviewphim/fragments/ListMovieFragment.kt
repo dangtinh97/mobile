@@ -1,6 +1,7 @@
 package com.example.reviewphim.fragments
 
 import android.os.Bundle
+import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,10 @@ import com.example.reviewphim.adapters.MovieAdapter
 import com.example.reviewphim.R
 import com.example.reviewphim.models.MovieListModel
 import com.example.reviewphim.models.ResponseModel
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_list_movie.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -23,6 +28,7 @@ import org.json.JSONTokener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 
 class ListMovieFragment(private val mainActivity: MainActivity) : Fragment() {
@@ -35,12 +41,13 @@ class ListMovieFragment(private val mainActivity: MainActivity) : Fragment() {
     private var onLoading = false;
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var processBar: ProgressBar
-
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        firebaseAnalytics = Firebase.analytics
         movieAdapter = MovieAdapter(this@ListMovieFragment)
         val view =  inflater.inflate(R.layout.fragment_list_movie, container, false)
         processBar = view.findViewById(R.id.progressBar_podcast_fragment)
@@ -50,7 +57,9 @@ class ListMovieFragment(private val mainActivity: MainActivity) : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if(newState==0 && dyScroll>1){
                     onLoading = false
-
+                    firebaseAnalytics.logEvent("scroll") {
+                        param("user_scroll",  Calendar.getInstance().getTime().toString())
+                    }
                     //Toast.makeText(context,lastOid,Toast.LENGTH_LONG).show()
                     fetchData(lastIdApi)
                 }
@@ -155,5 +164,6 @@ class ListMovieFragment(private val mainActivity: MainActivity) : Fragment() {
     fun setReaction(data:MovieListModel){
         movieAdapter.setViewer(data)
     }
+
 
 }

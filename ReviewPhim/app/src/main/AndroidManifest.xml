@@ -3,8 +3,10 @@
     package="com.example.reviewphim">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
+        android:name=".MyApplication"
         android:installLocation="preferExternal"
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -13,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ReviewPhim">
-        <activity android:name=".MainActivity"
+        <activity android:name="com.example.reviewphim.MainActivity"
             android:configChanges="orientation|screenSize|layoutDirection"
             android:theme="@style/Theme.ReviewPhim.NoActionBarAndStatusBar"
             ></activity>
