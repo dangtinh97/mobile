@@ -1,7 +1,6 @@
 package com.example.reviewphim.fragments
 
 import android.os.Bundle
-import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,10 +16,6 @@ import com.example.reviewphim.adapters.MovieAdapter
 import com.example.reviewphim.R
 import com.example.reviewphim.models.MovieListModel
 import com.example.reviewphim.models.ResponseModel
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_list_movie.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -35,19 +30,16 @@ class ListMovieFragment(private val mainActivity: MainActivity) : Fragment() {
 
     private var movies:MutableList<MovieListModel> = arrayListOf()
     private val sever: CallServer = AppConfig.retrofit.create(CallServer::class.java)
-    private var idLast = 0
     private var lastIdApi=0
     private var dyScroll=0
-    private var onLoading = false;
+    private var onLoading = false
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var processBar: ProgressBar
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        firebaseAnalytics = Firebase.analytics
         movieAdapter = MovieAdapter(this@ListMovieFragment)
         val view =  inflater.inflate(R.layout.fragment_list_movie, container, false)
         processBar = view.findViewById(R.id.progressBar_podcast_fragment)
@@ -57,10 +49,6 @@ class ListMovieFragment(private val mainActivity: MainActivity) : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if(newState==0 && dyScroll>1){
                     onLoading = false
-                    firebaseAnalytics.logEvent("scroll") {
-                        param("user_scroll",  Calendar.getInstance().getTime().toString())
-                    }
-                    //Toast.makeText(context,lastOid,Toast.LENGTH_LONG).show()
                     fetchData(lastIdApi)
                 }
 
@@ -72,8 +60,7 @@ class ListMovieFragment(private val mainActivity: MainActivity) : Fragment() {
             }
         })
 
-
-        return view;
+        return view
     }
 
     private fun fetchData(idLast:Int){
@@ -83,16 +70,14 @@ class ListMovieFragment(private val mainActivity: MainActivity) : Fragment() {
             override fun onResponse(call: Call<ResponseModel>, response: Response<ResponseModel>) {
                 if(response.isSuccessful){
                     loading(false)
-                    println("====ResponseJson"+response.body());
+
                     val body = response.body()
                     val data = body?.data
                     val list = data?.get("list").toString()
 
-
                     val listObject = JSONTokener(list).nextValue() as JSONArray
 
-
-                    for(i in 0..listObject.length()-1){
+                    for(i in 0 until listObject.length()){
                         val item = listObject[i].toString()
                         val jsonItem = JSONTokener(item).nextValue() as JSONObject
                         val title = jsonItem.get("title").toString().trim('"')
@@ -105,22 +90,6 @@ class ListMovieFragment(private val mainActivity: MainActivity) : Fragment() {
                         val id = jsonItem.get("id").toString().trim('"').toInt()
                         movies.add(MovieListModel(id,title,created,picture,video,nameChannel,countView,countReaction))
                         lastIdApi = id
-
-//                        val name = jsonItem.get("name").toString().trim('"')
-//                        val link = jsonItem.get("link").toString().trim('"')
-//                        val count = jsonItem.get("count").toString().trim('"').toInt()
-//                        val songId = jsonItem.get("song_id").toString().trim('"').toInt()
-                        //lastIdApi = jsonItem.get("song_id").toString().trim('"')
-                        //onLoading = false;
-//                        val urlImage = jsonItem.get("url").toString().trim('"')
-//                        val moneyText = jsonItem.get("fees_from_text").toString().trim('"')
-//                        val typeRedirect = jsonItem.get("type_redirect").toString().trim('"')
-//                        val redirectTo = jsonItem.get("redirect_to").toString().trim()
-//                        appActivity.setMedia(link,false)
-                        //appActivity.setMedia(link,false)
-                        //if(idLast!=="0") appActivity.setMedia(link,false)
-                        //models.add(Song(name,link,count,songId,urlImage))
-
                     }
                     //songList = models
 

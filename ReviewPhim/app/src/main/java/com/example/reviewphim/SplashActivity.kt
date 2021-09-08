@@ -10,28 +10,25 @@ import android.provider.Settings.Secure
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.reviewphim.services.ApiService
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
-import com.google.firebase.ktx.Firebase
-import java.math.BigInteger
-import java.security.MessageDigest
+//import java.math.BigInteger
+//import java.security.MessageDigest
 import java.util.*
 
+@Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {
 
     @SuppressLint("HardwareIds")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        val android_id = Secure.getString(
-            this.getContentResolver(),
+        val androidId = Secure.getString(
+            this.contentResolver,
             Secure.ANDROID_ID
         )
 
-        val infoApp = getDeviceSuperInfo();
+        val infoApp = getDeviceSuperInfo()
 
-        ApiService().installAppFirst(android_id,infoApp)
+        ApiService().installAppFirst(androidId,infoApp)
 
         Handler().postDelayed({
             val intent = Intent(this@SplashActivity,MainActivity::class.java)
@@ -42,7 +39,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun getDeviceSuperInfo(): String {
 
-        var s = "Debug-infos:"
+        var s = "Debug-info:"
         try {
             s += """
  OS Version: ${System.getProperty("os.version")}(${Build.VERSION.INCREMENTAL})"""
@@ -71,8 +68,6 @@ class SplashActivity : AppCompatActivity() {
             s += """
  MANUFACTURER: ${Build.MANUFACTURER}"""
             s += """
- SERIAL: ${Build.SERIAL}"""
-            s += """
  USER: ${Build.USER}"""
             s += """
  HOST: ${Build.HOST}"""
@@ -80,11 +75,11 @@ class SplashActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Log.e(TAG, "Error getting Device INFO")
         }
-        return s;
+        return s
     }
 
-    fun md5(input:String): String {
-        val md = MessageDigest.getInstance("MD5")
-        return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
-    }
+//    fun md5(input:String): String {
+//        val md = MessageDigest.getInstance("MD5")
+//        return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
+//    }
 }

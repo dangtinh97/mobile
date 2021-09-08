@@ -1,12 +1,12 @@
 package com.example.reviewphim
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
 
 import android.view.MotionEvent
 import android.view.View
@@ -22,7 +22,6 @@ import com.example.reviewphim.models.MovieListModel
 import com.example.reviewphim.services.ApiService
 
 import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DataSource
@@ -30,13 +29,8 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Log
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.exo_player_control_view.*
-import java.util.*
 import kotlin.system.exitProcess
 
 
@@ -49,7 +43,6 @@ const val STATE_PLAYER_FULLSCREEN = "playerFullscreen"
 const val STATE_PLAYER_PLAYING = "playerOnPlay"
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var exoPlayer:SimpleExoPlayer
     private lateinit var dataSourceFactory: DataSource.Factory
     private lateinit var playerView: PlayerView
@@ -57,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var movie:MovieListModel
     private var inScreenPlay = false
     private var yOrigin = (0).toFloat()
-    private var moveDown = 0;
+    private var moveDown = 0
 
     private var currentWindow = 0
     private var playbackPosition: Long = 0
@@ -72,6 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var listMovieFragment: ListMovieFragment
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -80,21 +74,16 @@ class MainActivity : AppCompatActivity() {
         title_movie_relative_layout.visibility = View.GONE
         if(!isOnline(this)){
             no_internet.visibility=View.VISIBLE
-            return;
+            return
         }
 
-        firebaseAnalytics = Firebase.analytics
-
         listenerActionMovie()
-
 
         listMovieFragment = ListMovieFragment(this)
         val adapter = AppViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(listMovieFragment,"Trang chủ")
         main_view_pager.adapter = adapter
-        main_view_pager.setCurrentItem(0)
-
-
+        main_view_pager.currentItem = 0
 
         //exoplayer
         exoPlayer = SimpleExoPlayer.Builder(this).build().apply {
@@ -102,15 +91,14 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        playerView.setOnTouchListener { v, event ->
+        playerView.setOnTouchListener { _, event ->
             val pCount = event.pointerCount
             var actString=""
-            var  y:Float = (0).toFloat();
+            var  y:Float = (0).toFloat()
             for (i in 0 until pCount){
                  y = event.getY(i)
-                val act = event.action
 
-                when(act){
+                when(event.action){
                     MotionEvent.ACTION_POINTER_DOWN->actString = "PTR DOWN"
                     MotionEvent.ACTION_POINTER_UP->actString = "ACTION_POINTER_UP"
                     MotionEvent.ACTION_DOWN->actString = "ACTION_DOWN"
@@ -122,9 +110,7 @@ class MainActivity : AppCompatActivity() {
             if(actString==="ACTION_MOVE" && y>yOrigin){
                 yOrigin = y
                 moveDown++
-            };
-
-
+            }
 
             if(actString=="ACTION_UP" && moveDown>4){
                 yOrigin = (0).toFloat()
@@ -166,7 +152,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun fullScreen(){
+    private fun fullScreen(){
         exo_fullscreen.visibility = View.GONE
         val height = RelativeLayout.LayoutParams.MATCH_PARENT
         val width = RelativeLayout.LayoutParams.MATCH_PARENT
@@ -178,7 +164,7 @@ class MainActivity : AppCompatActivity() {
 //        supportActionBar?.hide()
     }
 
-    fun expand() {
+    private fun expand() {
         exo_fullscreen.visibility = View.GONE
         if(inScreenPlay) list_movie.visibility = View.GONE
         val height = 650
@@ -189,7 +175,7 @@ class MainActivity : AppCompatActivity() {
 //        supportActionBar?.show()
     }
 
-    fun expandOnBottom(){
+    private fun expandOnBottom(){
         exo_fullscreen.visibility = View.VISIBLE
         val height = 230
         val width = RelativeLayout.LayoutParams.MATCH_PARENT
@@ -207,9 +193,7 @@ class MainActivity : AppCompatActivity() {
             prepare()
         }
         playerView.player = exoPlayer
-        exoPlayer.addListener(object : Player.EventListener{
 
-        })
     }
 
     private fun releasePlayer(){
@@ -217,7 +201,6 @@ class MainActivity : AppCompatActivity() {
         playbackPosition = exoPlayer.currentPosition
         currentWindow = exoPlayer.currentWindowIndex
         exoPlayer.release()
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -230,43 +213,46 @@ class MainActivity : AppCompatActivity() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        if (newConfig.orientation === Configuration.ORIENTATION_LANDSCAPE) {
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             fullScreen()
-        } else if (newConfig.orientation === Configuration.ORIENTATION_PORTRAIT) {
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             expand()
         }
     }
 
-    fun isOnline(context: Context): Boolean {
+    private fun isOnline(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (connectivityManager != null) {
+
             val capabilities =
                 connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
             if (capabilities != null) {
-                if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
-                    return true
-                } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
-                    Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
-                    return true
+                when {
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                        return true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                        return true
+                    }
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                        Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                        return true
+                    }
                 }
             }
-        }
+
         return false
     }
 
 
     fun playMovie(data:MovieListModel){
-
-        googleAnalytic("play_movie",data.title)
         setActionMovie(data)
         inScreenPlay = true
         expand()
         pause()
+        releasePlayer()
         val mineType = getMimeType(data.video_url)
         exoPlayer.clearMediaItems()
         mediaItem = MediaItem.Builder()
@@ -274,6 +260,7 @@ class MainActivity : AppCompatActivity() {
             .setMimeType(mineType)
             .build()
         initPlayer()
+
         playerView.onResume()
 
         apiService.addViewer(data)
@@ -281,6 +268,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun setActionMovie(data:MovieListModel){
         movie =data
         playerView.visibility = View.VISIBLE
@@ -307,10 +295,6 @@ class MainActivity : AppCompatActivity() {
             listMovieFragment.setReaction(movie)
             setActionMovie(movie)
         }
-//        movie.count_reaction = movie.count_reaction+1
-
-
-
     }
 
     private fun pause(){
@@ -319,7 +303,7 @@ class MainActivity : AppCompatActivity() {
         playerView.onResume()
     }
 
-    fun getMimeType(url: String?): String? {
+    private fun getMimeType(url: String?): String? {
         var type: String? = null
         val extension = MimeTypeMap.getFileExtensionFromUrl(url)
         if (extension != null) {
@@ -330,24 +314,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (pressedTime + 2000 > System.currentTimeMillis()) {
-            super.onBackPressed();
+            super.onBackPressed()
             exitProcess(-1)
         } else {
-            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show()
         }
-        pressedTime = System.currentTimeMillis();
-    }
-
-
-    private fun googleAnalytic(key:String,value:String){
-        val android_id = Settings.Secure.getString(
-            this.getContentResolver(),
-            Settings.Secure.ANDROID_ID
-        )
-
-        firebaseAnalytics.logEvent(key) {
-            param("user_$android_id",  value)
-        }
+        pressedTime = System.currentTimeMillis()
     }
 
 }
